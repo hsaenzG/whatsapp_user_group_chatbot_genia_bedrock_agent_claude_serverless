@@ -1,0 +1,65 @@
+[{
+    "M": {
+        "field": {
+            "S": "messages"
+        },
+        "value": {
+            "M": {
+                "messages": {
+                    "L": [{
+                        "M": {
+                            "from": {
+                                "S": "50256536538"
+                            },
+                            "id": {
+                                "S": "wamid.HBgLNTAyNTY1MzY1MzgVAgASGBQzQUVBNzA3Q0Q3OEM2OTNGRDI1RQA="
+                            },
+                            "text": {
+                                "M": {
+                                    "body": {
+                                        "S": "Hola"
+                                    }
+                                }
+                            },
+                            "type": {
+                                "S": "text"
+                            },
+                            "timestamp": {
+                                "S": "1719808590"
+                            }
+                        }
+                    }]
+                },
+                "metadata": {
+                    "M": {
+                        "phone_number_id": {
+                            "S": "385491864638576"
+                        },
+                        "display_phone_number": {
+                            "S": "15556240048"
+                        }
+                    }
+                },
+                "contacts": {
+                    "L": [{
+                        "M": {
+                            "wa_id": {
+                                "S": "50256536538"
+                            },
+                            "profile": {
+                                "M": {
+                                    "name": {
+                                        "S": "Hazel Saenz"
+                                    }
+                                }
+                            }
+                        }
+                    }]
+                },
+                "messaging_product": {
+                    "S": "whatsapp"
+                }
+            }
+        }
+    }
+}]
