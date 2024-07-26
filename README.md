@@ -54,8 +54,8 @@ Para instalar y desplegar la infraestructura del proyecto utilizando AWS CDK, si
    ```
 ## Agradecimientos
    Este repositorio se tomo de base del proyecto de Elizabeth Fuentes @elizabethfuentes12
-   repo: https://github.com/build-on-aws/building-gen-ai-whatsapp-assistant-with-amazon-bedrock-and-python
-   Articulo: https://dev.to/aws-espanol/construyendo-un-asistente-genai-de-whatsapp-con-amazon-bedrock-2hid
+    <br/>repo: https://github.com/build-on-aws/building-gen-ai-whatsapp-assistant-with-amazon-bedrock-and-python
+    <br/>Articulo: https://dev.to/aws-espanol/construyendo-un-asistente-genai-de-whatsapp-con-amazon-bedrock-2hid
 
 ## Seguridad
 
