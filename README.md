@@ -53,7 +53,7 @@ Para instalar y desplegar la infraestructura del proyecto utilizando AWS CDK, si
     DISPLAY_PHONE_NUMBER = 'XXXXXXXXXX' <- Tu numero de telefono a utilizar 
    ```
 ## Agradecimientos
-   Este repositorio se tomo de base del proyecto de [Elizabeth Fuentes] (https://github.com/elizabethfuentes12), gracias por tu excelente aporte a la comunidad, tu articulo fue una guia vital para la rapida implementación de este proyecto.  
+   Este repositorio se tomo de base del proyecto de Elizabeth Fuentes (https://github.com/elizabethfuentes12), gracias por tu excelente aporte a la comunidad, tu articulo fue una guia vital para la rapida implementación de este proyecto.  
     <br/> Si tienes dudas de como configurar la integración con WhatsApp utiliza la siguiente documentación:
     <br/>repo: https://github.com/build-on-aws/building-gen-ai-whatsapp-assistant-with-amazon-bedrock-and-python
     <br/>Articulo: https://dev.to/aws-espanol/construyendo-un-asistente-genai-de-whatsapp-con-amazon-bedrock-2hid
