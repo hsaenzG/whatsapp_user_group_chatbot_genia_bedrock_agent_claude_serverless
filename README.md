@@ -3,7 +3,7 @@
 Este proyecto contiene un chatbot para grupos de usuarios, su principal objetivo es ser un agente que ayuda a las personas a conocer la información de la comunidad y del Community Day de AWS Guatemala, entrega información de como unirse a la comunidad, datos del community day como localización del venue y como llegar, en un futuro devolverá la información de las charlas y ayudará a crear una agenda de acuerdo al nivel que la persona solicite, todo esto lo hace utilizando Whatsapp  + AWS con GenIA BedrockAgent y Claude.
 
 ## Arquitectura
-![arquitectura](imagenes/BedrokAgent.drawio (3).png)
+![arquitectura](imagenes/BedrokAgent.png)
 
 ## Contenido
 
