@@ -1,1 +1,0 @@
-from bedrock_agents.bedrock_agents import bedrock_agents
