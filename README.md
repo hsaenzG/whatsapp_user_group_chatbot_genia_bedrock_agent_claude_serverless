@@ -52,11 +52,15 @@ Para instalar y desplegar la infraestructura del proyecto utilizando AWS CDK, si
    ```sh
     DISPLAY_PHONE_NUMBER = 'XXXXXXXXXX' <- Tu numero de telefono a utilizar 
    ```
+## Agradecimientos
+   Este repositorio se tomo de base del proyecto de Elizabeth Fuentes (github: https://github.com/elizabethfuentes12)
+   repo: https://github.com/build-on-aws/building-gen-ai-whatsapp-assistant-with-amazon-bedrock-and-python
+   Articulo: https://dev.to/aws-espanol/construyendo-un-asistente-genai-de-whatsapp-con-amazon-bedrock-2hid
 
-## Security
+## Seguridad
 
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+Ve: [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) para mas información.
 
-## License
+## Licencia
 
-This library is licensed under the MIT-0 License. See the LICENSE file.
+Esta libreria esta bajo una licencia MIT-0. 
