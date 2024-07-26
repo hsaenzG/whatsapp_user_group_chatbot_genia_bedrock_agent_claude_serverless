@@ -26,11 +26,11 @@ Para instalar y desplegar la infraestructura del proyecto utilizando AWS CDK, si
 
 1. Clona el repositorio:
    ```sh
-   git clone <URL del repositorio>
+   git clone https://github.com/hsaenzG/whatsapp_user_group_chatbot_genia_bedrock_agent_claude_serverless/tree/main
    ```
 2. Navega al directorio del proyecto:
    ```sh
-   cd User_Group_Chatbot_GenIA_BedrockAgent_Claude/private-assistant
+   cd whatapp-usergroup-chat-bedrock-claude-serverless/private-assistant
    ```
 3. Instala las dependencias necesarias:
    ```sh
@@ -53,7 +53,8 @@ Para instalar y desplegar la infraestructura del proyecto utilizando AWS CDK, si
     DISPLAY_PHONE_NUMBER = 'XXXXXXXXXX' <- Tu numero de telefono a utilizar 
    ```
 ## Agradecimientos
-   Este repositorio se tomo de base del proyecto de Elizabeth Fuentes @elizabethfuentes12
+   Este repositorio se tomo de base del proyecto de [Elizabeth Fuentes] (https://github.com/elizabethfuentes12), gracias por tu excelente aporte a la comunidad, tu articulo fue una guia vital para la rapida implementación de este proyecto. 
+    <br/>
     <br/>repo: https://github.com/build-on-aws/building-gen-ai-whatsapp-assistant-with-amazon-bedrock-and-python
     <br/>Articulo: https://dev.to/aws-espanol/construyendo-un-asistente-genai-de-whatsapp-con-amazon-bedrock-2hid
 
