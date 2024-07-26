@@ -53,7 +53,7 @@ Para instalar y desplegar la infraestructura del proyecto utilizando AWS CDK, si
     DISPLAY_PHONE_NUMBER = 'XXXXXXXXXX' <- Tu numero de telefono a utilizar 
    ```
 ## Agradecimientos
-   Este repositorio se tomo de base del proyecto de Elizabeth Fuentes (github: https://github.com/elizabethfuentes12)
+   Este repositorio se tomo de base del proyecto de Elizabeth Fuentes @elizabethfuentes12
    repo: https://github.com/build-on-aws/building-gen-ai-whatsapp-assistant-with-amazon-bedrock-and-python
    Articulo: https://dev.to/aws-espanol/construyendo-un-asistente-genai-de-whatsapp-con-amazon-bedrock-2hid
 
