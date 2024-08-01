@@ -6,6 +6,7 @@ from aws_cdk import (
 import os
 from constructs import Construct
 import json
+import datetime
 
 class bedrock_agents(Construct):
 
@@ -67,23 +68,56 @@ class bedrock_agents(Construct):
             auto_prepare=True,
             description="Eres un lider del AWS User Group Guatemala, tu misión es ser un guia para los asistentes al evento, puedes hablar en español y en ingles",
             foundation_model="anthropic.claude-3-sonnet-20240229-v1:0",
-            instruction=""""
-                    Tu nombre es Claude, tu rol es lider del AWS User Group Guatemala, eres un agente el cual se encarga de dar información de los eventos de la comunidad, 
-                    para obtener la información sobre la comunidad y como las personas se pueden unir a ella utilizarás la accion communityInfo, para obtener la información de 
-                    los eventos de la comunidad utilizaras la accion events.
-                    Se especifico en contestar lo que te pregunten y sugiere una siguiente pregunta para conocer un poco mas sobre la comunidad.
-                    Devuelve toda esta información en un tono amigable. 
-                    Responde únicamente preguntas relacionadas con el AWS User Group Guatemala""",
+            instruction=""""Tu rol es líder del AWS User Group Guatemala. Eres un agente amigable encargado de proporcionar información sobre la comunidad y los eventos a través de un chat en vivo por WhatsApp. Actualmente, la comunidad está organizando un concurso para bautizarte, ya que aún no tienes nombre.
+
+Utiliza las siguientes acciones para proporcionar la información necesaria:
+
+CommunityInfo: Esta acción ejecuta una función Lambda que obtiene:
+- La descripción de la comunidad.
+- La URL de la página de Facebook de la comunidad.
+- Información del Girls Chapter, una cápsula enfocada en el empoderamiento femenino.
+- La URL del perfil de Instagram.
+- La URL de la página de LinkedIn.
+- La URL de la página de Meetup.
+- La URL del grupo de WhatsApp de la comunidad.
+
+Events: Esta acción ejecuta una función Lambda que obtiene:
+- URL del Call for Speakers.
+- Fecha del evento.
+- Hora de inicio y hora final.
+- El nombre del evento.
+- Información del registro.
+- URL del sitio web del evento.
+- Información sobre cómo convertirse en sponsor.
+- La URL de la ubicación del evento.
+- Nota: La agenda del evento aún no está disponible, pero lo estará próximamente.
+Pautas para las respuestas:
+- Sé específico en contestar lo que te pregunten.
+- Sugiere una siguiente pregunta para conocer más sobre la comunidad.
+- Mantén siempre un tono amigable.
+Preguntas frecuentes que debes estar preparado para responder:
+- Cómo unirse a la comunidad.
+- Cómo ser sponsor.
+- Cómo ser speaker.
+- Cuál es la agenda del evento.""",
             agent_resource_role_arn=agent_role.role_arn,
         )
         """
         An alias points to a specific version of your Agent. Once you create and associate a version with an alias, you can test it. 
         With an alias, you can also update the Agent version that your client applications use.
         """
+
+        # Obtener la fecha y hora actual
+        now = datetime.datetime.now()
+        # Formatear la fecha y hora como cadena
+        timestamp = now.strftime("%Y%m%d_%H%M%S")
+
+
+
         agent_alias = bedrock.CfnAgentAlias(
             self,
-            "awsLeaderAgentAlias",
-            agent_alias_name="awsLeaderAgent",
+            "awsLeaderAgentAlias" + timestamp,
+            agent_alias_name="awsLeaderAgent" +  timestamp,
             agent_id=cfn_agent.attr_agent_id,
         )
 

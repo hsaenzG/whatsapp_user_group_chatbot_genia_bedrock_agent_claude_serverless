@@ -1,11 +1,10 @@
 {
 	"openapi": "3.0.0",
 	"info": {
-		"title": "AWS User Gruop Guatemala API",
+		"title": "AWS User Group Guatemala API",
 		"description": "Exposes the events for agent",
 		"version": "1.0.0"
 	},
-
 	"paths": {
 		"/community": {
 			"get": {
@@ -18,8 +17,31 @@
 								"schema": {
 									"type": "object",
 									"properties": {
-										"weatherDescription": {
+										"descripcion": {
 											"type": "string"
+										},
+										"facebook": {
+											"type": "string",
+											"format": "url"
+										},
+										"girlschapter": {
+											"type": "string"
+										},
+										"instagram": {
+											"type": "string",
+											"format": "url"
+										},
+										"linkedin": {
+											"type": "string",
+											"format": "url"
+										},
+										"meetup": {
+											"type": "string",
+											"format": "url"
+										},
+										"whatsapp": {
+											"type": "string",
+											"format": "url"
 										}
 									}
 								}

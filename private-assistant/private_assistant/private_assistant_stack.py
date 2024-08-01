@@ -212,10 +212,12 @@ class PrivateAssistantStack(Stack):
         # varibles community events
         Tbl.events_table.grant_full_access(Fn.community_event_info) 
         Fn.community_event_info.add_environment(key='events_table', value=Tbl.events_table.table_name)
+        Fn.community_event_info.add_to_role_policy(iam.PolicyStatement( actions=["dynamodb:*"], resources=[f"{Tbl.events_table.table_arn}",f"{Tbl.events_table.table_arn}/*"]))
 
         # varibles community info
         Tbl.community_table.grant_full_access(Fn.community_info) 
-        Fn.community_info.add_environment(key='community_table', value=Tbl.events_table.table_name)
+        Fn.community_info.add_environment(key='community_table', value=Tbl.community_table.table_name)
+        Fn.community_info.add_to_role_policy(iam.PolicyStatement( actions=["dynamodb:Scan","dynamodb:Query"], resources=[f"{Tbl.community_table.table_arn}",f"{Tbl.community_table.table_arn}/*"]))
 
        # Crear una política basada en recursos
         resource_policy = iam.PolicyStatement(
