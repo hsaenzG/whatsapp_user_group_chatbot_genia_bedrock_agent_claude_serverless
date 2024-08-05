@@ -57,7 +57,7 @@ Para instalar y desplegar la infraestructura del proyecto utilizando AWS CDK, si
    ```
 
 ## Ejemplo
-   Quieres ver como funciona?  ![Whatsapp](https://wa.link/vavqpw)
+   Quieres ver como funciona? Whatsapp: https://wa.link/vavqpw
 ## Agradecimientos
    Este repositorio se tomo de base del proyecto de Elizabeth Fuentes (https://github.com/elizabethfuentes12), gracias por tu excelente aporte a la comunidad, tu articulo fue una guia vital para la rapida implementación de este proyecto.  
     <br/> Si tienes dudas de como configurar la integración con WhatsApp utiliza la siguiente documentación:
