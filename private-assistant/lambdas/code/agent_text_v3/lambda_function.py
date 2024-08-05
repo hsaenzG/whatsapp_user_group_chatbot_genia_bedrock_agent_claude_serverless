@@ -67,31 +67,6 @@ def query_history(key,table,keyvalue):
     print(response)
     return response['Items'][0]
 
-def agent_text(model_id, anthropic_version, text, max_tokens,history):
-    system_prompt = """The following is a friendly conversation between a human and an AI. 
-    The AI is talkative and provides lots of specific details from its context. 
-    If the AI does not know the answer to a question, it truthfully says it does not know.
-    Always reply in the original user language.
-    """
-    boto3_bedrock = boto3.client("bedrock-runtime")
-    content = [{"type":"text","text":text}]
-    new_history = add_text("user",content, history)
-    #text  = '\n'.join([f"<document>{doc.page_content}</document>" for doc in docs])
-    body = {
-        "system": system_prompt,
-        "messages":new_history,"anthropic_version":anthropic_version,
-        "max_tokens":max_tokens}
-    accept = 'application/json'
-    contentType = 'application/json'
-
-    response = boto3_bedrock.invoke_model(
-        body=json.dumps(body), 
-        modelId=model_id, accept=accept, contentType=contentType)
-    response_body = json.loads(response.get('body').read())
-    assistant_text = response_body.get("content")[0].get("text")
-    new_history = add_text("assistant", assistant_text, new_history)
-    return assistant_text, new_history
-
 def get_agent_response(session_id, prompt,history):
 
     """
@@ -116,17 +91,7 @@ def get_agent_response(session_id, prompt,history):
         # generate a response.
         # Obtener la versión de boto3
         
-        boto3_version = getattr(boto3, '__version__', 'Unknown version')
-    
-        # Imprimir la versión en los logs
-        print(f'Boto3 version: {boto3_version}')
-
-        print("Invocando al agente")
-        print(prompt)
-        print(agentId)
-        print(session_id)
-        print(agentAliasId)
-
+        boto3_version = getattr(boto3, '__version__', 'Unknown version') 
 
         bedrock_client = boto3.client("bedrock-agent-runtime")
         response = bedrock_client.invoke_agent(
@@ -137,8 +102,6 @@ def get_agent_response(session_id, prompt,history):
             inputText = prompt,
             sessionId = session_id
         )
-
-        print(response)
 
         # Leer la respuesta del agente
         try:
@@ -220,7 +183,7 @@ def lambda_handler(event, context):
         phone_id = event['phone_id']
 
         max_tokens=1000
-        response,history =  get_agent_response(messages_id,whats_message,history) #agent_text(model_id, anthropic_version, whats_message, max_tokens,history)
+        response,history =  get_agent_response(messages_id,whats_message,history) 
         print(response)
 
         whats_reply(whatsapp_out_lambda,phone, whats_token, phone_id, f"{response}", messages_id)

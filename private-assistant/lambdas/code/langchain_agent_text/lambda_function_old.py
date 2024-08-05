@@ -24,6 +24,10 @@ bedrock_client = boto3.client("bedrock-runtime")
 
 whatsapp_out_lambda = os.environ.get('WHATSAPP_OUT')
 
+agentId=os.environ.get('agentId')
+agentAlias = os.environ.get('agentAliasId').split('|')
+agentAliasId=agentAlias[1]
+
 table_name_active_connections = os.environ.get('whatsapp_MetaData')
 
 table_session_active = dynamodb_resource.Table(os.environ['user_sesion_metadata'])
@@ -67,6 +71,83 @@ def get_chat_response(llm,prompt, memory):
     return conversation_with_summary.predict(input=prompt)
 
 
+
+def get_agent_response(session_id, prompt):
+
+    """
+    Sends a prompt for the agent to process and respond to.
+
+    :param agent_id: The unique identifier of the agent to use.
+    :param agent_alias_id: The alias of the agent to use.
+    :param session_id: The unique identifier of the session. Use the same value across requests
+        to continue the same conversation.
+    :param prompt: The prompt that you want Claude to complete.
+    :return: Inference response from the model.
+    """
+
+    try:
+        
+        #history
+        content = [{"type":"text","text":prompt}]
+        #new_history = add_text("user",content, history)
+        
+        # Note: The execution time depends on the foundation model, complexity of the agent,
+        # and the length of the prompt. In some cases, it can take up to a minute or more to
+        # generate a response.
+        # Obtener la versión de boto3
+
+        print(prompt)
+        print(agentAliasId)
+        print(agentId)
+        print(session_id)
+
+        boto3_version = getattr(boto3, '__version__', 'Unknown version') 
+
+        bedrock_client = boto3.client("bedrock-agent-runtime")
+        response = bedrock_client.invoke_agent(
+            agentAliasId = agentAliasId,
+            agentId = agentId,
+            enableTrace = True,
+            endSession = False,
+            inputText = prompt,
+            sessionId = session_id
+        )
+
+        # Leer la respuesta del agente
+        try:
+            completion = ""
+
+            for event in response['completion']:
+                if isinstance(event, dict):
+                    if 'chunk' in event:
+                        chunk = event['chunk']
+                        if 'text' in chunk:
+                            print(chunk['text'])
+                            completion = completion + chunk['text']
+                        elif 'bytes' in chunk:
+                            print(chunk['bytes'].decode('utf-8'))
+                            completion = completion + chunk['bytes'].decode('utf-8')
+                    elif 'bytes' in event:
+                        print(event['bytes'].decode('utf-8'))
+                        completion = completion + chunk['bytes'].decode('utf-8')
+                else:
+                    print(event)
+                
+                print('completion:')
+                print(completion)
+
+        except KeyError as e:
+            print(f"KeyError: {e}")
+
+    except  :
+        print("Couldn't invoke agent. *** ")
+        raise
+
+    #new_history = add_text("assistant", completion, new_history)
+
+    return completion#,new_history
+
+
 def lambda_handler(event, context):
     print (event)
 
@@ -107,7 +188,9 @@ def lambda_handler(event, context):
 
         memory = memory_dynamodb(id,table_name_session)
 
-        response = get_chat_response(llm,whats_message, memory)
+        response =get_agent_response(memory,whats_message) #get_agent_response(memory,whats_message);
+
+        #response = get_chat_response(llm,whats_message, memory)
 
         print(response)
 

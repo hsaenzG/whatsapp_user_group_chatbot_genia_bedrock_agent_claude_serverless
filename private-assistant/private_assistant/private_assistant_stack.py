@@ -140,6 +140,7 @@ class PrivateAssistantStack(Stack):
         Fn.transcriber_done.add_environment(key='whatsapp_MetaData', value=Tbl.whatsapp_MetaData.table_name)
 
         Fn.langchain_agent_text.grant_invoke(Fn.transcriber_done)
+        
 
         Fn.transcriber_done.add_environment( key='ENV_LAMBDA_AGENT_TEXT', value=Fn.langchain_agent_text.function_name)
 
@@ -160,6 +161,7 @@ class PrivateAssistantStack(Stack):
         # variables bedrock agent
         Fn.langchain_agent_text.add_environment( key='agentId', value=agentId)
         Fn.langchain_agent_text.add_environment( key='agentAliasId', value=agentAliasId)
+        
         
         Fn.langchain_agent_text.grant_invoke(Fn.process_stream)
         Fn.langchain_agent_text.add_to_role_policy(iam.PolicyStatement( actions=["bedrock:*"], resources=['*']))

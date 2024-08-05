@@ -48,6 +48,9 @@ def lambda_handler(event, context):
     for entry in body['entry']:
         print("Iterating entry")
         print(entry)
+        entry["changes"][0]["value"]["messages"][0]["id"] = entry["changes"][0]["value"]["messages"][0]["id"].replace('=', '')
+        print("fixed entry Iterating entry")
+        print(entry)
         display_phone_number=entry["changes"][0]["value"]["metadata"]["display_phone_number"]
         timestamp = int(entry["changes"][0]["value"]["messages"][0]["timestamp"])
         now = int(time.time())
