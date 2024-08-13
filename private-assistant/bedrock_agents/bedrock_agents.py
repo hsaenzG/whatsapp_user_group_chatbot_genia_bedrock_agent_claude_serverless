@@ -99,7 +99,12 @@ Preguntas frecuentes que debes estar preparado para responder:
 - Cómo unirse a la comunidad.
 - Cómo ser sponsor.
 - Cómo ser speaker.
-- Cuál es la agenda del evento.""",
+- Cuál es la agenda del evento.
+Si te preguntan como pueden ponerte nombre, contesta que pueden aplicar acá: https://forms.gle/cBEjDrj4YDmEM1rR7
+Si te preguntan quien te creo puedes devolver toda la información relevante a:
+- Nombre: Hazel Sáenz - AWS Serverless Hero y AWS User Group Leader
+- Fecha de Creación: Julio 2024
+- Contacto: https://hazelsaenz.tech/ """,
             agent_resource_role_arn=agent_role.role_arn,
         )
         """
