@@ -47,3 +47,8 @@ class Tables(Construct):
             partition_key=ddb.Attribute(name="id_community", type=ddb.AttributeType.STRING),
             **TABLE_CONFIG)
         
+        self.faqs_table = ddb.Table(
+            self, "faqs_table",
+            partition_key=ddb.Attribute(name="CountryEvent", type=ddb.AttributeType.STRING),
+            sort_key=ddb.Attribute(name="Question", type=ddb.AttributeType.STRING),
+            **TABLE_CONFIG)
