@@ -1,0 +1,32 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "AWS User Group Guatemala API",
+		"description": "Exposes the FAQs for agent",
+		"version": "1.0.0"
+	},
+	"paths": {
+		"/faqs": {
+			"get": {
+				"description": "Get the AWS User Group FAQs",
+				"responses": {
+					"200": {
+						"description": "Return the frequently asked question of an AWS Community Day event",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"faq": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

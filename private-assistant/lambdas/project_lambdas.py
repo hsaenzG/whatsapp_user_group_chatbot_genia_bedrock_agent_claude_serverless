@@ -116,6 +116,17 @@ class Lambdas(Construct):
             layers= [Lay.common,Lay.bs4_requests],
             architecture=aws_lambda.Architecture.ARM_64,
             **COMMON_LAMBDA_CONF)
+
+        self.get_faq = aws_lambda.Function(
+            self, "GetFAQLambda",
+            description="Fetches FAQ answers from DynamoDB based on the event country and question",
+            handler="lambda_function.lambda_handler",
+            code=aws_lambda.Code.from_asset("./lambdas/code/get_faq"),
+            layers=[Lay.common,Lay.bs4_requests],
+            architecture=aws_lambda.Architecture.ARM_64,
+            **COMMON_LAMBDA_CONF
+        )
+        
         """
         self.langchain_agent_audio = aws_lambda.Function(
             self, "langChain_agent_audio", 
