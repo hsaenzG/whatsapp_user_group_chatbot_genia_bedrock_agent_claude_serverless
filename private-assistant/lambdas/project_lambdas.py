@@ -108,6 +108,14 @@ class Lambdas(Construct):
             architecture=aws_lambda.Architecture.ARM_64,
             **COMMON_LAMBDA_CONF)
         
+        self.community_sessions = aws_lambda.Function(
+            self, "community_sessions", 
+            description ="Get info of the sessions' Community Day" ,
+            handler="lambda_function.lambda_handler",
+            code=aws_lambda.Code.from_asset("./lambdas/code/community_sessions"),
+            layers= [Lay.common,Lay.bs4_requests],
+            architecture=aws_lambda.Architecture.ARM_64,
+            **COMMON_LAMBDA_CONF)
         """
         self.langchain_agent_audio = aws_lambda.Function(
             self, "langChain_agent_audio", 

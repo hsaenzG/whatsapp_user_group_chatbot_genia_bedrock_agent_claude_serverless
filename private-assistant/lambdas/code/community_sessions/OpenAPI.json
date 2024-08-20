@@ -1,0 +1,131 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+	  "title": "Sessions API",
+	  "version": "1.0.0",
+	  "description": "API for managing session information"
+	},
+	"paths": {
+	  "/sessions": {
+		"get": {
+		  "description": "Fetch a list of sessions for a specific Community Day.",
+		  "parameters": [
+			{
+			  "name": "groupId",
+			  "description": "Group id that belong of the sessions",
+			  "in": "query",
+			  "required": true,
+			  "schema": {
+				"type": "integer"
+			  }
+			},
+			{
+			  "name": "groupName",
+			  "description": "Group name of the sessions",
+			  "in": "query",
+			  "required": false,
+			  "schema": {
+				"type": "string"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "A list of sessions",
+			  "content": {
+				"application/json": {
+				  "schema": {
+					"type": "object",
+					"properties": {
+					  "groupId": {
+						"type": "integer"
+					  },
+					  "groupName": {
+						"type": "string"
+					  },
+					  "sessions": {
+						"type": "array",
+						"items": {
+						  "type": "object",
+						  "properties": {
+							"id": {
+							  "type": "string"
+							},
+							"title": {
+							  "type": "string"
+							},
+							"description": {
+							  "type": "string",
+							  "nullable": true
+							},
+							"startsAt": {
+							  "type": "string",
+							  "format": "date-time"
+							},
+							"endsAt": {
+							  "type": "string",
+							  "format": "date-time"
+							},
+							"isServiceSession": {
+							  "type": "boolean"
+							},
+							"isPlenumSession": {
+							  "type": "boolean"
+							},
+							"speakers": {
+							  "type": "array",
+							  "items": {
+								"type": "object",
+								"properties": {
+								  "id": {
+									"type": "string"
+								  },
+								  "name": {
+									"type": "string"
+								  }
+								}
+							  }
+							},
+							"categories": {
+							  "type": "array",
+							  "items": {
+								"type": "string"
+							  }
+							},
+							"roomId": {
+							  "type": "integer"
+							},
+							"room": {
+							  "type": "string"
+							},
+							"liveUrl": {
+							  "type": "string",
+							  "nullable": true
+							},
+							"recordingUrl": {
+							  "type": "string",
+							  "nullable": true
+							},
+							"status": {
+							  "type": "string"
+							},
+							"isInformed": {
+							  "type": "boolean"
+							},
+							"isConfirmed": {
+							  "type": "boolean"
+							}
+						  }
+						}
+					  }
+					}
+				  }
+				}
+			  }
+			}
+		  }
+		}
+	  }
+	}
+  }
+  

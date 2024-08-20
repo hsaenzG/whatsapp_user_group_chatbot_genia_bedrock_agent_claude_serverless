@@ -82,7 +82,7 @@ class PrivateAssistantStack(Stack):
 
         Age = bedrock_agents(self, 'Age')
         #self.Age.agent_add("eventsSearch", "MyActionName", Fn.community_event_info.function_arn, "./lambdas/code/community_event_info/OpenAPI.json")
-        agentId,agentAliasId = Age.create_agent("AWSCommunityLeaderAgent",  Fn.community_event_info.function_arn, Fn.community_info.function_arn)
+        agentId,agentAliasId = Age.create_agent("AWSCommunityLeaderAgent",  Fn.community_event_info.function_arn, Fn.community_info.function_arn, Fn.community_sessions.function_arn)
        
         
         Fn.process_stream.add_environment(key='ENV_LAMBDA_AGENT_TEXT', value=Fn.agent_text_v3.function_name)
@@ -224,7 +224,7 @@ class PrivateAssistantStack(Stack):
        # Crear una política basada en recursos
         resource_policy = iam.PolicyStatement(
             actions=["lambda:InvokeFunction"],
-            resources=[Fn.community_event_info.function_arn,Fn.community_info.function_arn],
+            resources=[Fn.community_event_info.function_arn,Fn.community_info.function_arn, Fn.community_sessions.function_arn],
             principals=[iam.ServicePrincipal("bedrock.amazonaws.com")]
         )
 
@@ -237,6 +237,13 @@ class PrivateAssistantStack(Stack):
 
         # Agregar la política a la función Lambda
         Fn.community_info.add_permission(
+            "AllowBedrockInvocation",
+            principal=iam.ServicePrincipal("bedrock.amazonaws.com"),
+            action="lambda:InvokeFunction",
+        )
+
+        # Agregar la política a la función Lambda
+        Fn.community_sessions.add_permission(
             "AllowBedrockInvocation",
             principal=iam.ServicePrincipal("bedrock.amazonaws.com"),
             action="lambda:InvokeFunction",

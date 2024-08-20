@@ -13,7 +13,7 @@ class bedrock_agents(Construct):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-    def create_agent(self, agent_name: str,  lambda_function_name_event: str,lambda_function_name_community: str) -> bedrock.CfnAgent:
+    def create_agent(self, agent_name: str,  lambda_function_name_event: str,lambda_function_name_community: str, lambda_function_name_sessions: str) -> bedrock.CfnAgent:
          # create a new bedrock agent, using Claude-3 Haiku
         agent_role = iam.Role(
             self,
@@ -57,6 +57,21 @@ class bedrock_agents(Construct):
                     los links de las redes sociales, e información acerca del girls chapter""",
             skip_resource_in_use_check_on_delete=False,
         )
+            
+        #This is the OpenAPI that the agent will use to validate the input for the sessions of the community day
+        with open("./lambdas/code/community_sessions/OpenAPI.json", "r") as file:
+            schema = file.read()
+            action_group_sessions = bedrock.CfnAgent.AgentActionGroupProperty(
+            action_group_name="sessions",
+            action_group_executor=bedrock.CfnAgent.ActionGroupExecutorProperty(
+                lambda_= lambda_function_name_sessions
+            ),
+            # the properties below are optional
+            api_schema=bedrock.CfnAgent.APISchemaProperty(payload=schema),
+            description="""Esta acción encontrarás sesiones del Community Day, en ella podrás acceder 
+                    a los títulos de las sesiones, fecha, hora cada sesión, el salón dónde se dará la sesión y el speaker""",
+            skip_resource_in_use_check_on_delete=False,
+        )
 
         # At long last, create the bedrock agent!
         self.BedrockAgent = cfn_agent = bedrock.CfnAgent(
@@ -64,7 +79,7 @@ class bedrock_agents(Construct):
             "AWSCommunityLeaderAgent",
             agent_name=agent_name,
             # the properties below are optional
-            action_groups=[action_group_events_info,action_group_community_info],
+            action_groups=[action_group_events_info,action_group_community_info, action_group_sessions],
             auto_prepare=True,
             description="Eres un lider del AWS User Group Guatemala, tu misión es ser un guia para los asistentes al evento, puedes hablar en español y en ingles",
             foundation_model="anthropic.claude-3-sonnet-20240229-v1:0",
@@ -100,6 +115,14 @@ Preguntas frecuentes que debes estar preparado para responder:
 - Cómo ser sponsor.
 - Cómo ser speaker.
 - Cuál es la agenda del evento.
+
+Sessions: Esta acción ejecuta una función Lambda que obtiene:
+- El título de la sesión.
+- La hora de inicio de la sesión.
+- La hora de fin de la sesión.
+- Nombre o nombres de los speakers de la sesión.
+- Nombre de salón de conferencia de la sesión.
+
 Si te preguntan como pueden ponerte nombre, contesta que pueden aplicar acá: https://forms.gle/cBEjDrj4YDmEM1rR7
 Si te preguntan quien te creo puedes devolver toda la información relevante a:
 - Nombre: Hazel Sáenz - AWS Serverless Hero y AWS User Group Leader

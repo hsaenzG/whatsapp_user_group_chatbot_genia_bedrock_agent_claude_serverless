@@ -1,17 +1,17 @@
 {
 	"openapi": "3.0.0",
 	"info": {
-		"title": "AWS User Group Guatemala API",
-		"description": "Exposes the events for agent",
+		"title": "AWS User Group LATAM",
+		"description": "Exposes all the communities available for the agent",
 		"version": "1.0.0"
 	},
 	"paths": {
 		"/community": {
 			"get": {
-				"description": "Get the AWS User Group information",
+				"description": "Get the AWS User Groups information",
 				"responses": {
 					"200": {
-						"description": "Return all the information of the AWS User Group Guatemala, social media links, chapters and ways to connect",
+						"description": "Return all the information of all the User Groups of LATAM, social media links, chapters and ways to connect each one",
 						"content": {
 							"application/json": {
 								"schema": {
