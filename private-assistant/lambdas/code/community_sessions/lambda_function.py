@@ -5,7 +5,8 @@ import urllib3
 def lambda_handler(event, context):
     try:
   
-        session_data = get_sessionize_data()
+        linkSessionize = event.get('linkSessionize')
+        session_data = get_sessionize_data(linkSessionize)
         processed_data = process_session_data(session_data)
         
         result = {
@@ -34,8 +35,9 @@ def lambda_handler(event, context):
             'body': json.dumps({'error': str(e)})
         }
 
-def get_sessionize_data():
-    sessionize_url = 'https://sessionize.com/api/v2/9nu3ymhm/view/Sessions'
+def get_sessionize_data(url):
+    
+    sessionize_url = url
     
     http = urllib3.PoolManager()
     response = http.request('GET', sessionize_url)

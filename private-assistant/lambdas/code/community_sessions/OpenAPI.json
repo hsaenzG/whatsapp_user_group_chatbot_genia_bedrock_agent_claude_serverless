@@ -11,23 +11,32 @@
 		  "description": "Fetch a list of sessions for a specific Community Day.",
 		  "parameters": [
 			{
-			  "name": "groupId",
-			  "description": "Group id that belong of the sessions",
+			  "name": "id_event",
+			  "description": "Event id that belong of the groups",
 			  "in": "query",
-			  "required": true,
+			  "required": false,
 			  "schema": {
 				"type": "integer"
 			  }
 			},
 			{
-			  "name": "groupName",
+			  "name": "name",
 			  "description": "Group name of the sessions",
 			  "in": "query",
 			  "required": false,
 			  "schema": {
 				"type": "string"
 			  }
-			}
+			},
+			{
+				"name": "sesionize-api",
+				"description": "Link to sessionize, it has the info of the Community Day",
+				"in": "query",
+				"required": true,
+				"schema": {
+				  "type": "string"
+				}
+			  }
 		  ],
 		  "responses": {
 			"200": {

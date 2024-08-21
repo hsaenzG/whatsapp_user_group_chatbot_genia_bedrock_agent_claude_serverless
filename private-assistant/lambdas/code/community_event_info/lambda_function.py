@@ -40,12 +40,16 @@ def lambda_handler(event, context):
 def get_events_info():
     try:
         response = table.scan(
-            FilterExpression=Key('status').eq(1)
+            FilterExpression=Key('status').eq("1")
         )
+        items=[]
         if 'Items' in response and response['Items']:
-            return response['Items'][0]
+            print(response['Items'])
+            items += response['Items']
+            return items
         else:
-            return {'error': 'Event not found'}
+            return {'error': 'Info not found'}
+        
     except Exception as e:
         print(e)
         return {'error': str(e)}
