@@ -1,6 +1,6 @@
 import json
 import boto3
-from botocore.exceptions import ClientError
+from boto3.dynamodb.conditions import Key
 import os
 
 dynamodb = boto3.resource('dynamodb')
@@ -45,17 +45,17 @@ def get_faqs(id_event):
         return { 'error': 'IdEvent is required.' }
 
     try:
-        response = table.get_item(
-            Key={
-                'CountryEvent': country_event,
-                'Question': question
-            }
+        response = table.scan(
+            FilterExpression=Key('id_event').eq(id_event)
         )
 
-        if 'Item' in response:
-            return response['Item']['Answer']
+        if 'Items' in response and response['Items']:
+            print(response['Items'])
+            items += response['Items']
+            return items
         else:
-            return "Question not found."
+            return {'error': 'Info not found'}
 
-    except ClientError as e:
-        return f"Error  DynamoDB: {str(e)}"
+    except Exception as e:
+        print(e)
+        return {'error': str(e)}
