@@ -13,7 +13,7 @@ class bedrock_agents(Construct):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-    def create_agent(self, agent_name: str,  lambda_function_name_event: str,lambda_function_name_community: str, lambda_function_name_sessions: str) -> bedrock.CfnAgent:
+    def create_agent(self, agent_name: str,  lambda_function_name_event: str,lambda_function_name_community: str, lambda_function_name_sessions: str, lambda_function_faqs: str) -> bedrock.CfnAgent:
          # create a new bedrock agent, using Claude-3 Haiku
         agent_role = iam.Role(
             self,
@@ -93,7 +93,7 @@ class bedrock_agents(Construct):
             "AWSCommunityLeaderAgent",
             agent_name=agent_name,
             # the properties below are optional
-            action_groups=[action_group_events_info,action_group_community_info, action_group_sessions],
+            action_groups=[action_group_events_info,action_group_community_info, action_group_sessions,action_group_faqs],
             auto_prepare=True,
             description="Eres un lider del AWS User Group Guatemala, tu misión es ser un guia para los asistentes al evento, puedes hablar en español y en ingles",
             foundation_model="anthropic.claude-3-sonnet-20240229-v1:0",
@@ -129,6 +129,15 @@ Hora de inicio y fin de la sesión.
 Nombre(s) del speaker(s) de la sesión.
 Nombre de la sala de conferencia.
 Utiliza la URL de la API de Sessionize obtenida a través del action group events para buscar las sesiones, ademas del id_event y el name.
+
+FAQS: Esta acción ejecuta una función Lambda que obtiene:
+- Preguntas frecuentes sobre un evento de la comunidad de AWS
+- Fechas y horarios del evento
+- Ubicaciones
+- Parqueos y tarifas
+- Si el evento contara con transmisión en vivo
+- En que se diferencia el evento de otras conferencias de la industria
+
 Pautas para las respuestas:
 
 Responde de manera específica y directa según lo que se te pregunte.
