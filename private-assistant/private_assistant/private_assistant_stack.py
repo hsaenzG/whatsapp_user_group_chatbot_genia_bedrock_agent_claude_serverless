@@ -82,7 +82,7 @@ class PrivateAssistantStack(Stack):
 
         Age = bedrock_agents(self, 'Age')
         #self.Age.agent_add("eventsSearch", "MyActionName", Fn.community_event_info.function_arn, "./lambdas/code/community_event_info/OpenAPI.json")
-        agentId,agentAliasId = Age.create_agent("AWSCommunityLeaderAgent",  Fn.community_event_info.function_arn, Fn.community_info.function_arn, Fn.community_sessions.function_arn)
+        agentId,agentAliasId = Age.create_agent("AWSCommunityLeaderAgent",  Fn.community_event_info.function_arn, Fn.community_info.function_arn, Fn.community_sessions.function_arn, Fn.get_faqs.function_arn)
        
         
         Fn.process_stream.add_environment(key='ENV_LAMBDA_AGENT_TEXT', value=Fn.agent_text_v3.function_name)
