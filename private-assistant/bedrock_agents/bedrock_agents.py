@@ -73,6 +73,20 @@ class bedrock_agents(Construct):
             skip_resource_in_use_check_on_delete=False,
         )
 
+        #This is the OpenAPI that the agent will use to validate the input for the FAQs
+        with open("./lambdas/code/get_faqs/OpenAPI.json", "r") as file:
+            schema = file.read()
+            action_group_faqs = bedrock.CfnAgent.AgentActionGroupProperty(
+            action_group_name="faqs",
+            action_group_executor=bedrock.CfnAgent.ActionGroupExecutorProperty(
+                lambda_= lambda_function_faqs
+            ),
+            # the properties below are optional
+            api_schema=bedrock.CfnAgent.APISchemaProperty(payload=schema),
+            description="""Esta acción encontraras las preguntas frecuentes sobre un evento de AWS User Group""",
+            skip_resource_in_use_check_on_delete=False,
+        )
+
         # At long last, create the bedrock agent!
         self.BedrockAgent = cfn_agent = bedrock.CfnAgent(
             self,
