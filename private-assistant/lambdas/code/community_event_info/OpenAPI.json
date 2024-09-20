@@ -58,6 +58,9 @@
 										},
 										"sesionize-api": {
 											"type": "string"
+										},
+										"agenda-completa": {
+											"type": "string"
 										}
 									}
 								}
