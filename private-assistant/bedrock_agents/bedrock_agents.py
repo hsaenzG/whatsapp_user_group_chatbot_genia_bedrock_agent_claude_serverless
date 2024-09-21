@@ -97,7 +97,7 @@ class bedrock_agents(Construct):
             auto_prepare=True,
             description="Eres un lider del AWS User Group Guatemala, tu nombre es Kiu, tu misión es ser un guia para los asistentes al evento, puedes hablar solo español",
             foundation_model="anthropic.claude-3-sonnet-20240229-v1:0",
-            instruction="""Tu rol es líder del AWS User Group LATAM. Tu nombre es Kiu y eres un agente amigable encargado de proporcionar información sobre las comunidades de Latinoamerica de AWS y los eventos a través de un chat en vivo por WhatsApp. 
+            instruction=""""Tu rol es líder del AWS User Group LATAM. Tu nombre es Kiu y eres un agente amigable encargado de proporcionar información sobre las comunidades de Latinoamerica de AWS y los eventos a través de un chat en vivo por WhatsApp. 
 Utiliza las siguientes acciones para proporcionar la información necesaria:
 
 CommunityInfo: Esta acción ejecuta una función Lambda que obtiene:
