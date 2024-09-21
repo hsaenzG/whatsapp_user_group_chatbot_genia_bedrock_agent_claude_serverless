@@ -1,11 +1,17 @@
 import json
-import boto3
 import urllib3
 
 def lambda_handler(event, context):
     try:
   
-        linkSessionize = event.get('linkSessionize')
+        print(event)
+        # Acceder al valor de 'sesionize-api' en 'parameters'
+        parameters = event.get('parameters')
+        linkSessionize = next((param['value'] for param in parameters if param['name'] == 'sesionize-api'), None)
+        
+        # linkSessionize ahora contiene el valor del campo 'value'
+        print(linkSessionize)
+
         session_data = get_sessionize_data(linkSessionize)
         processed_data = process_session_data(session_data)
         
@@ -41,7 +47,9 @@ def get_sessionize_data(url):
     
     http = urllib3.PoolManager()
     response = http.request('GET', sessionize_url)
-    
+    #response = requests.get(sessionize_url)
+    print (response.data.decode('utf-8'))
+
     if response.status == 200:
         return json.loads(response.data.decode('utf-8'))
     else:
