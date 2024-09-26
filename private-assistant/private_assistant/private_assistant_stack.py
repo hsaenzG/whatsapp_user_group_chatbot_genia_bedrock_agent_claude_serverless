@@ -82,7 +82,7 @@ class PrivateAssistantStack(Stack):
 
         Age = bedrock_agents(self, 'Age')
         #self.Age.agent_add("eventsSearch", "MyActionName", Fn.community_event_info.function_arn, "./lambdas/code/community_event_info/OpenAPI.json")
-        agentId,agentAliasId = Age.create_agent("AWSCommunityLeaderAgent",  Fn.community_event_info.function_arn, Fn.community_info.function_arn, Fn.community_sessions.function_arn)
+        agentId,agentAliasId = Age.create_agent("AWSCommunityLeaderAgent",  Fn.community_event_info.function_arn, Fn.community_info.function_arn, Fn.community_sessions.function_arn, Fn.get_faqs.function_arn)
        
         
         Fn.process_stream.add_environment(key='ENV_LAMBDA_AGENT_TEXT', value=Fn.agent_text_v3.function_name)
@@ -154,15 +154,14 @@ class PrivateAssistantStack(Stack):
 
         Tbl.user_sesion_metadata.grant_full_access(Fn.langchain_agent_text)
         Fn.langchain_agent_text.add_environment(key='user_sesion_metadata', value=Tbl.user_sesion_metadata.table_name)
-        
+
         Fn.langchain_agent_text.add_environment(key='ENV_MODEL_ID', value=model_id)
 
         Fn.langchain_agent_text.add_environment( key='WHATSAPP_OUT', value=Fn.whatsapp_out.function_name )
         # variables bedrock agent
         Fn.langchain_agent_text.add_environment( key='agentId', value=agentId)
         Fn.langchain_agent_text.add_environment( key='agentAliasId', value=agentAliasId)
-        
-        
+
         Fn.langchain_agent_text.grant_invoke(Fn.process_stream)
         Fn.langchain_agent_text.add_to_role_policy(iam.PolicyStatement( actions=["bedrock:*"], resources=['*']))
 
@@ -200,14 +199,14 @@ class PrivateAssistantStack(Stack):
 
         Tbl.user_sesion_metadata.grant_full_access(Fn.agent_text_v3)
         Fn.agent_text_v3.add_environment(key='user_sesion_metadata', value=Tbl.user_sesion_metadata.table_name)
-        
+
         Fn.agent_text_v3.add_environment(key='ENV_MODEL_ID', value=model_id)
 
         Fn.agent_text_v3.add_environment( key='WHATSAPP_OUT', value=Fn.whatsapp_out.function_name )
         # variables bedrock agent
         Fn.agent_text_v3.add_environment( key='agentId', value=agentId)
         Fn.agent_text_v3.add_environment( key='agentAliasId', value=agentAliasId)
-        
+
         Fn.agent_text_v3.grant_invoke(Fn.process_stream)
         Fn.agent_text_v3.add_to_role_policy(iam.PolicyStatement( actions=["bedrock:*"], resources=['*']))
 
@@ -221,6 +220,11 @@ class PrivateAssistantStack(Stack):
         Fn.community_info.add_environment(key='community_table', value=Tbl.community_table.table_name)
         Fn.community_info.add_to_role_policy(iam.PolicyStatement( actions=["dynamodb:Scan","dynamodb:Query"], resources=[f"{Tbl.community_table.table_arn}",f"{Tbl.community_table.table_arn}/*"]))
 
+        # variables faqs
+        Tbl.faqs_table.grant_full_access(Fn.get_faqs)
+        Fn.get_faqs.add_environment(key="faqs_table", value=Tbl.faqs_table.table_name)
+        Fn.get_faqs.add_to_role_policy(iam.PolicyStatement(actions=["dynamodb:Scan","dynamodb:Query"], resources=[f"{Tbl.faqs_table.table_arn}", f"{Tbl.faqs_table.table_arn}/*"]))
+
        # Crear una política basada en recursos
         resource_policy = iam.PolicyStatement(
             actions=["lambda:InvokeFunction"],
@@ -228,14 +232,14 @@ class PrivateAssistantStack(Stack):
             principals=[iam.ServicePrincipal("bedrock.amazonaws.com")]
         )
 
-        # Agregar la política a la función Lambda
+        # Agregar la política a la función Lambda Event Info
         Fn.community_event_info.add_permission(
             "AllowBedrockInvocation",
             principal=iam.ServicePrincipal("bedrock.amazonaws.com"),
             action="lambda:InvokeFunction",
         )
 
-        # Agregar la política a la función Lambda
+        # Agregar la política a la función Lambda Community Info
         Fn.community_info.add_permission(
             "AllowBedrockInvocation",
             principal=iam.ServicePrincipal("bedrock.amazonaws.com"),
@@ -248,9 +252,10 @@ class PrivateAssistantStack(Stack):
             principal=iam.ServicePrincipal("bedrock.amazonaws.com"),
             action="lambda:InvokeFunction",
         )
-        
-      
 
-       
-
-    
+        # Agregar la política a la función Lambda FAQs
+        Fn.get_faqs.add_permission(
+            "AllowBedrockInvocation",
+            principal=iam.ServicePrincipal("bedrock.amazonaws.com"),
+            action="lambda:InvokeFunction",
+        )
